@@ -1,0 +1,53 @@
+<div *ngIf="user">
+  <div class="container">
+    <div class="col-md-4 col-xs-12">
+      <img src="{{user.avatar_url}}" />
+      <h1>{{user.login}}</h1>
+      <h3 style="color: #ddd">{{user.name}}</h3>
+      <h4>{{user.bio}}</h4>
+      <div style="text-align: center">
+        <button class="btn btn-default"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+           Edit bio</button>
+      </div>
+      <hr />
+      <h4><i class="fa fa-briefcase" aria-hidden="true"></i>
+         {{user.company}}</h4>
+      <h4><i class="fa fa-map-marker" aria-hidden="true"></i>
+         {{user.location}}</h4>
+    </div>
+    <div class="col-md-8 col-xs-12" >
+      <form class="horizontal-form" [formGroup]="myForm" (ngSubmit)="getRepos()">
+        <div class="form-group" style="margin-top: 15px">
+          <input type="text" formControlName="username" class="form-control" placeholder="consultar usuario..."/>
+        </div>
+        <div class="form-group">
+          <button  class="btn btn-default btn-lg"><i class="fa fa-search" aria-hidden="true"></i>
+             buscar</button>
+        </div>
+      </form>
+
+      <div class="row">
+        <div class="col-xs-12 col-sm-4" *ngIf="myfindUser">
+            <img src="{{myfindUser.avatar_url}}" class="img-thumbnail" />
+            <h1>{{myfindUser.login}}</h1>
+            <h3 style="color: #ddd">{{myfindUser.name}}</h3>
+            <h4>{{myfindUser.bio}}</h4>
+
+            <hr />
+            <h4>{{myfindUser.company}}</h4>
+            <h4>{{myfindUser.location}}</h4>
+        </div>
+        <div class="col-sm-12" *ngIf="repo">
+          <ul class="list-group"  *ngFor="let myRepo of repo">
+            <li class="list-group-item"><strong>Nombre:</strong> {{myRepo.name}} | <strong>url: </strong><a href="{{myRepo.html_url}}" target="_selft"> <i class="fa fa-external-link" aria-hidden="true"></i>
+               ir </a> | <strong>Lenguaje :</strong> <span class="label label-warning">  {{myRepo.language}}</span> | <i class="fa fa-star" aria-hidden="true"></i>
+                  {{myRepo.stargazers_count}}</li>
+          </ul>
+        </div>
+        <div class="col-xs-12 col-sm-12" *ngIf="!repo">
+          <h1>No se ha encontrado repositorios!</h1>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
